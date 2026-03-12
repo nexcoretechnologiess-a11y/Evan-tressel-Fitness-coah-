@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Evan Tressel | Six Pack Without Restrictive Diets</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,700&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --black: #0a0a0a;
+    --dark: #111111;
+    --darker: #0d0d0d;
+    --white: #ffffff;
+    --off-white: #f5f3ee;
+    --lime: #c8f230;
+    --lime-dark: #a8d010;
+    --gray: #1e1e1e;
+    --gray-mid: #2a2a2a;
+    --gray-light: #888;
+    --border: rgba(255,255,255,0.08);
+    --shadow-lime: rgba(200,242,48,0.2);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--lime);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.2s, height 0.2s;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--lime);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.18s ease, width 0.2s, height 0.2s;
+    opacity: 0.5;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%; height: 70px;
+    background: rgba(10,10,10,0.9);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+  nav.scrolled { background: rgba(10,10,10,0.98); }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem; letter-spacing: 2px;
+    color: var(--white); text-decoration: none;
+  }
+  .nav-logo span { color: var(--lime); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.82rem; font-weight: 600;
+    color: var(--gray-light); text-decoration: none;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--lime); }
+  .nav-cta {
+    background: var(--lime); color: var(--black);
+    padding: 0.55rem 1.4rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.88rem; font-weight: 800;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--lime-dark); transform: translateY(-2px); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 55% 45%;
+    position: relative; overflow: hidden;
+    padding-top: 70px;
+  }
+  .hero-left {
+    display: flex; flex-direction: column;
+    justify-content: center;
+    padding: 80px 5% 80px 6%;
+    position: relative; z-index: 2;
+  }
+  .hero-right {
+    position: relative;
+    background: var(--gray);
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-right::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--lime) 0%, transparent 60%);
+    opacity: 0.08;
+  }
+  /* Big number background */
+  .hero-right .bg-num {
+    position: absolute;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22rem; color: rgba(255,255,255,0.03);
+    line-height: 1; user-select: none;
+    bottom: -2rem; right: -2rem;
+  }
+  .hero-img-placeholder {
+    width: 100%; height: 100%;
+    min-height: 500px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 1rem; position: relative; z-index: 2;
+  }
+  .before-after {
+    display: flex; gap: 1rem;
+    padding: 2rem;
+  }
+  .ba-card {
+    background: var(--gray-mid);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+    width: 140px; height: 200px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ba-label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+    padding: 1rem 0.8rem 0.6rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gray-light);
+  }
+  .ba-weight {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem; color: var(--white);
+    display: block;
+  }
+  .ba-card.after .ba-label { color: var(--lime); }
+  .ba-card.after .ba-weight { color: var(--lime); }
+  .ba-icon {
+    font-size: 3.5rem; opacity: 0.15;
+  }
+  .ba-arrow {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; color: var(--lime);
+    font-weight: 900; align-self: center;
+  }
+  /* Stats overlay */
+  .hero-stat-pill {
+    position: absolute; z-index: 5;
+    background: var(--lime); color: var(--black);
+    padding: 0.6rem 1.1rem;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800; letter-spacing: 0.06em;
+  }
+  .hero-stat-pill.top { top: 2rem; right: 2rem; font-size: 0.78rem; text-transform: uppercase; }
+  .hero-stat-pill.bottom { bottom: 3rem; left: 2rem; font-size: 0.72rem; }
+
+  /* Hero left content */
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--lime);
+    display: flex; align-items: center; gap: 0.7rem;
+    margin-bottom: 1.5rem;
+    opacity: 0; animation: slideIn 0.5s ease 0.1s forwards;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 32px; height: 2px; background: var(--lime);
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  h1.hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 7vw, 7rem);
+    line-height: 0.92; letter-spacing: 2px;
+    color: var(--white); margin-bottom: 0.3rem;
+    opacity: 0; animation: slideIn 0.6s ease 0.25s forwards;
+  }
+  h1.hero-title .lime { color: var(--lime); }
+  h1.hero-title .outline {
+    -webkit-text-stroke: 2px var(--white);
+    color: transparent;
+  }
+  .hero-sub {
+    font-size: 1.1rem; font-weight: 300;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.65; max-width: 440px;
+    margin: 1.5rem 0 2.5rem;
+    opacity: 0; animation: fadeUp 0.6s ease 0.4s forwards;
+  }
+  .hero-sub strong { color: var(--white); font-weight: 600; }
+  .hero-btns {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.6s ease 0.55s forwards;
+  }
+  .btn-lime {
+    background: var(--lime); color: var(--black);
+    padding: 1rem 2.2rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem; font-weight: 800;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .btn-lime:hover { background: var(--lime-dark); transform: translateY(-3px); box-shadow: 0 12px 30px var(--shadow-lime); }
+  .btn-outline {
+    background: transparent; color: var(--white);
+    padding: 1rem 2rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none; border: 1.5px solid var(--border);
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--lime); color: var(--lime); }
+  .hero-numbers {
+    display: flex; gap: 2.5rem; margin-top: 3.5rem;
+    padding-top: 2rem; border-top: 1px solid var(--border);
+    opacity: 0; animation: fadeUp 0.6s ease 0.7s forwards;
+  }
+  .h-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--lime); line-height: 1; }
+  .h-lbl { font-size: 0.75rem; color: var(--gray-light); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.2rem; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; }
+
+  /* Diagonal divider */
+  .diagonal {
+    width: 100%;
+    height: 80px;
+    background: var(--off-white);
+    clip-path: polygon(0 100%, 100% 0, 100% 100%);
+    margin-top: -1px;
+  }
+  .diagonal-dark {
+    background: var(--black);
+    clip-path: polygon(0 0, 100% 100%, 0 100%);
+    height: 80px; margin-bottom: -1px;
+  }
+
+  /* ── TICKER ── */
+  .ticker-wrap {
+    background: var(--lime);
+    overflow: hidden;
+    padding: 0.7rem 0;
+    white-space: nowrap;
+  }
+  .ticker {
+    display: inline-flex; gap: 0; animation: ticker 25s linear infinite;
+  }
+  .ticker-item {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.88rem; font-weight: 800;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--black);
+    padding: 0 2rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .ticker-item::after { content: '✦'; font-size: 0.6rem; opacity: 0.6; }
+  @keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+  /* ── ABOUT ── */
+  #about { background: var(--off-white); color: var(--black); padding: 100px 5%; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .about-visual {
+    position: relative;
+  }
+  .about-box {
+    background: var(--black);
+    border-radius: 2px;
+    padding: 3rem;
+    position: relative; overflow: hidden;
+  }
+  .about-box::before {
+    content: '';
+    position: absolute; top: 0; left: 0; bottom: 0; width: 4px;
+    background: var(--lime);
+  }
+  .about-big-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 7rem; color: var(--lime);
+    line-height: 1; opacity: 0.15;
+    position: absolute; bottom: -1rem; right: 1rem;
+  }
+  .about-stat-row { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .about-stat-row:last-child { border-bottom: none; margin-bottom: 0; }
+  .about-stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem; color: var(--lime); line-height: 1;
+  }
+  .about-stat-txt { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-top: 0.2rem; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }
+  .about-corner-badge {
+    position: absolute; top: -1.5rem; right: -1.5rem;
+    background: var(--lime); color: var(--black);
+    padding: 1.2rem; text-align: center;
+    clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px);
+    min-width: 100px;
+  }
+  .badge-num { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; line-height: 1; }
+  .badge-txt { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; }
+
+  .about-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--black);
+    background: var(--lime); display: inline-block;
+    padding: 0.2rem 0.8rem; margin-bottom: 1rem;
+  }
+  .about-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    letter-spacing: 1px; line-height: 1;
+    color: var(--black); margin-bottom: 1.2rem;
+  }
+  #about p { color: #444; line-height: 1.8; margin-bottom: 1rem; font-size: 0.97rem; }
+  .about-list { list-style: none; margin: 1.5rem 0 2rem; }
+  .about-list li {
+    display: flex; gap: 0.8rem; align-items: flex-start;
+    padding: 0.65rem 0; border-bottom: 1px solid #e8e4dc;
+    color: #333; font-size: 0.92rem;
+  }
+  .about-list li span.check { color: var(--lime-dark); font-size: 0.9rem; flex-shrink: 0; margin-top: 0.1rem; }
+
+  /* ── PROCESS ── */
+  #process { background: var(--black); padding: 100px 5%; }
+  .process-head { text-align: center; margin-bottom: 4rem; }
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--lime); margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: 2px; color: var(--white); line-height: 1;
+  }
+  .section-title .outline { -webkit-text-stroke: 1.5px var(--white); color: transparent; }
+  .section-sub { color: rgba(255,255,255,0.4); max-width: 500px; margin: 1rem auto 0; line-height: 1.7; }
+  .steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); }
+  .step {
+    background: var(--dark);
+    padding: 2.5rem 1.8rem;
+    position: relative; overflow: hidden;
+    transition: background 0.25s;
+  }
+  .step:hover { background: var(--gray); }
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem; color: rgba(255,255,255,0.04);
+    line-height: 1; position: absolute; top: 1rem; right: 1rem;
+  }
+  .step-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--lime); margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .step-tag::before { content: ''; width: 20px; height: 1.5px; background: var(--lime); }
+  .step-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .step-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 1px; color: var(--white); margin-bottom: 0.7rem; }
+  .step-text { font-size: 0.87rem; color: rgba(255,255,255,0.45); line-height: 1.7; }
+  .step-bottom {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+    background: var(--lime); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .step:hover .step-bottom { transform: scaleX(1); }
+
+  /* ── SERVICES ── */
+  #services { background: var(--off-white); color: var(--black); padding: 100px 5%; }
+  #services .section-tag { color: var(--black); }
+  #services .section-title { color: var(--black); }
+  #services .section-title .outline { -webkit-text-stroke: 1.5px var(--black); color: transparent; }
+  #services .section-sub { color: #888; }
+  .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3.5rem; }
+  .s-card {
+    background: var(--white);
+    border: 1px solid #e0dcd4;
+    padding: 2.5rem;
+    position: relative; overflow: hidden;
+    transition: all 0.25s;
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  }
+  .s-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+  .s-card.featured {
+    background: var(--black); color: var(--white);
+    border-color: var(--black);
+  }
+  .s-card.featured .s-name,
+  .s-card.featured .s-desc,
+  .s-card.featured .s-feat li { color: rgba(255,255,255,0.85); }
+  .s-card.featured .s-price { color: var(--lime); }
+  .s-badge {
+    position: absolute; top: 1.5rem; right: -1rem;
+    background: var(--lime); color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 0.25rem 1.5rem 0.25rem 0.8rem;
+  }
+  .s-icon { font-size: 2.2rem; margin-bottom: 1.2rem; }
+  .s-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 1px; color: var(--black); margin-bottom: 0.6rem; }
+  .s-desc { font-size: 0.87rem; color: #666; line-height: 1.7; margin-bottom: 1.4rem; }
+  .s-price { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--lime-dark); margin-bottom: 1.2rem; }
+  .s-feat { list-style: none; }
+  .s-feat li { font-size: 0.84rem; color: #555; padding: 0.35rem 0; display: flex; gap: 0.6rem; align-items: flex-start; border-bottom: 1px solid #f0ece4; }
+  .s-feat li:last-child { border-bottom: none; }
+  .s-feat li::before { content: '→'; color: var(--lime-dark); font-weight: 700; flex-shrink: 0; }
+
+  /* ── RESULTS ── */
+  #results { background: var(--darker); padding: 100px 5%; }
+  .results-head { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 3rem; }
+  .transformations { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+  .t-card {
+    background: var(--gray);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.25s;
+  }
+  .t-card:hover { transform: translateY(-5px); }
+  .t-visual {
+    height: 200px;
+    background: var(--gray-mid);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .t-visual::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.7));
+  }
+  .t-ba-row {
+    display: flex; height: 100%; width: 100%;
+  }
+  .t-before, .t-after {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem; opacity: 0.2;
+    position: relative;
+  }
+  .t-before { background: rgba(255,255,255,0.02); }
+  .t-after { background: rgba(200,242,48,0.05); }
+  .t-divider {
+    position: absolute; left: 50%; top: 0; bottom: 0;
+    width: 2px; background: var(--lime); transform: translateX(-50%); z-index: 2;
+  }
+  .t-divider::after { content: '◀▶'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); color: var(--lime); font-size: 0.6rem; background: var(--gray); padding: 0.2rem 0.3rem; border-radius: 2px; white-space: nowrap; z-index: 3; }
+  .t-weights {
+    position: absolute; bottom: 0.6rem; left: 0; right: 0;
+    display: flex; justify-content: space-between;
+    padding: 0 0.8rem; z-index: 5;
+  }
+  .t-w {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem; color: rgba(255,255,255,0.6);
+  }
+  .t-w.after-w { color: var(--lime); }
+  .t-body { padding: 1.5rem; }
+  .t-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--white); margin-bottom: 0.3rem; }
+  .t-duration { font-size: 0.75rem; color: var(--gray-light); font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.8rem; }
+  .t-quote { font-size: 0.87rem; color: rgba(255,255,255,0.5); line-height: 1.65; font-style: italic; }
+  .t-stat {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: rgba(200,242,48,0.1); color: var(--lime);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 0.25rem 0.6rem;
+    margin-top: 1rem;
+  }
+
+  /* ── TESTIMONIALS ── */
+  #testimonials { background: var(--black); padding: 100px 5%; }
+  .testi-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1px; background: var(--border); margin-top: 3.5rem; }
+  .t-item {
+    background: var(--dark); padding: 2.5rem;
+    transition: background 0.2s; position: relative; overflow: hidden;
+  }
+  .t-item:hover { background: var(--gray); }
+  .t-item::before {
+    content: '"';
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 8rem; color: var(--lime); opacity: 0.06;
+    position: absolute; top: -1rem; left: 1rem;
+    line-height: 1; pointer-events: none;
+  }
+  .t-stars { color: var(--lime); font-size: 0.85rem; letter-spacing: 3px; margin-bottom: 1rem; }
+  .t-text { font-size: 0.97rem; color: rgba(255,255,255,0.65); line-height: 1.75; margin-bottom: 1.5rem; font-style: italic; }
+  .t-person { display: flex; align-items: center; gap: 0.8rem; }
+  .t-avatar {
+    width: 42px; height: 42px;
+    background: var(--gray-mid); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: var(--lime);
+    clip-path: polygon(6px 0, 100% 0, 100% 100%, 0 100%, 0 6px);
+    flex-shrink: 0;
+  }
+  .t-pname { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; }
+  .t-plost { font-size: 0.75rem; color: var(--lime); font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.08em; }
+
+  /* ── FAQ ── */
+  #faq { background: var(--off-white); color: var(--black); padding: 100px 5%; }
+  #faq .section-tag { color: var(--black); }
+  #faq .section-title { color: var(--black); }
+  #faq .section-sub { color: #888; }
+  .faq-list { max-width: 800px; margin: 3.5rem auto 0; }
+  .fq {
+    border-bottom: 1px solid #ddd; overflow: hidden;
+  }
+  .fq-q {
+    padding: 1.5rem 0;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.05rem; font-weight: 700; letter-spacing: 0.04em;
+    color: var(--black); cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    user-select: none; transition: color 0.2s;
+  }
+  .fq-q:hover { color: var(--lime-dark); }
+  .fq-icon {
+    width: 28px; height: 28px; flex-shrink: 0;
+    background: var(--black); color: var(--lime);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; clip-path: polygon(6px 0,100% 0,100% 100%,0 100%,0 6px);
+    transition: transform 0.3s, background 0.2s;
+  }
+  .fq.open .fq-icon { transform: rotate(45deg); background: var(--lime); color: var(--black); }
+  .fq-a {
+    max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.2s;
+    font-size: 0.92rem; color: #555; line-height: 1.75; padding: 0;
+  }
+  .fq.open .fq-a { max-height: 200px; padding-bottom: 1.4rem; }
+
+  /* ── CTA ── */
+  #cta {
+    background: var(--lime);
+    padding: 120px 5%; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  #cta::before {
+    content: 'GET FIT';
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22rem; color: rgba(0,0,0,0.04);
+    white-space: nowrap; pointer-events: none;
+    line-height: 1;
+  }
+  .cta-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(0,0,0,0.5); margin-bottom: 1rem;
+  }
+  .cta-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    letter-spacing: 2px; color: var(--black);
+    line-height: 0.95; margin-bottom: 1.5rem;
+  }
+  .cta-sub { font-size: 1.05rem; color: rgba(0,0,0,0.6); max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.7; }
+  .cta-form {
+    display: flex; gap: 0; max-width: 440px; margin: 0 auto;
+    background: var(--white); overflow: hidden;
+    clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+  }
+  .cta-input {
+    flex: 1; padding: 1rem 1.2rem;
+    font-family: 'Barlow', sans-serif; font-size: 0.9rem;
+    border: none; outline: none; background: transparent; color: var(--black);
+  }
+  .cta-btn {
+    background: var(--black); color: var(--lime);
+    border: none; padding: 1rem 1.5rem; cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem; font-weight: 800;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    transition: background 0.2s; white-space: nowrap;
+  }
+  .cta-btn:hover { background: #222; }
+  .cta-disc { font-size: 0.75rem; color: rgba(0,0,0,0.4); margin-top: 1rem; }
+  .cta-ig {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    margin-top: 2.5rem;
+    background: var(--black); color: var(--lime);
+    padding: 0.9rem 2rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem; font-weight: 800;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none;
+    clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+    transition: all 0.2s;
+  }
+  .cta-ig:hover { background: #1a1a1a; transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black);
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 5%;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1.5rem;
+  }
+  .f-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem; letter-spacing: 2px; color: var(--white); text-decoration: none;
+  }
+  .f-logo span { color: var(--lime); }
+  .f-copy { font-size: 0.78rem; color: rgba(255,255,255,0.2); font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.05em; }
+  .f-socials { display: flex; gap: 0.8rem; }
+  .f-socials a {
+    width: 36px; height: 36px;
+    background: var(--gray); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.4); text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 700;
+    clip-path: polygon(4px 0, 100% 0, 100% 100%, 0 100%, 0 4px);
+    transition: all 0.2s;
+  }
+  .f-socials a:hover { background: var(--lime); color: var(--black); }
+
+  /* ── REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── TOAST ── */
+  #toast {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 999;
+    background: var(--lime); color: var(--black);
+    padding: 0.9rem 1.5rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem; font-weight: 800; letter-spacing: 0.06em;
+    clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+    transform: translateY(80px); opacity: 0;
+    transition: all 0.35s;
+  }
+  #toast.show { transform: translateY(0); opacity: 1; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    #hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .about-grid, .data-grid { grid-template-columns: 1fr; }
+    .about-visual { display: none; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .services-grid, .transformations, .testi-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .steps { grid-template-columns: 1fr; }
+    footer { flex-direction: column; text-align: center; }
+    .hero-numbers { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">EVAN<span>.</span>TRESSEL</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#process">Method</a></li>
+    <li><a href="#services">Coaching</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">DM "FIT" →</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Online Fitness Coach</div>
+    <h1 class="hero-title">
+      GET A<br>
+      <span class="lime">SIX PACK</span><br>
+      <span class="outline">WITHOUT</span><br>
+      STARVING.
+    </h1>
+    <p class="hero-sub">
+      I help men <strong>shred down and get lean</strong> without restrictive diets or spending their life in the gym. Real food. Real results. Works around a 9–5.
+    </p>
+    <div class="hero-btns">
+      <a href="#cta" class="btn-lime">Apply for Coaching ↗</a>
+      <a href="#results" class="btn-outline">See Transformations</a>
+    </div>
+    <div class="hero-numbers">
+      <div>
+        <div class="h-num">19.3K</div>
+        <div class="h-lbl">Followers</div>
+      </div>
+      <div>
+        <div class="h-num">50+</div>
+        <div class="h-lbl">Lbs Lost Per Client</div>
+      </div>
+      <div>
+        <div class="h-num">1:1</div>
+        <div class="h-lbl">Personal Coaching</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="bg-num">6</div>
+    <div class="hero-stat-pill top">✦ No Restrictive Diets</div>
+    <div class="hero-img-placeholder">
+      <div class="before-after">
+        <div class="ba-card before">
+          <div class="ba-icon">🧍</div>
+          <div class="ba-label">Before<span class="ba-weight">205 lbs</span></div>
+        </div>
+        <div class="ba-arrow">→</div>
+        <div class="ba-card after">
+          <div class="ba-icon">💪</div>
+          <div class="ba-label">After<span class="ba-weight">170 lbs</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-stat-pill bottom">Reid · −35 lbs · 4.5 Months</div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span class="ticker-item">Six Pack Without Dieting</span>
+    <span class="ticker-item">Real Food · Real Results</span>
+    <span class="ticker-item">Works Around Your 9-5</span>
+    <span class="ticker-item">1:1 Personalized Coaching</span>
+    <span class="ticker-item">DM "FIT" to Apply</span>
+    <span class="ticker-item">19K+ Community</span>
+    <span class="ticker-item">Six Pack Without Dieting</span>
+    <span class="ticker-item">Real Food · Real Results</span>
+    <span class="ticker-item">Works Around Your 9-5</span>
+    <span class="ticker-item">1:1 Personalized Coaching</span>
+    <span class="ticker-item">DM "FIT" to Apply</span>
+    <span class="ticker-item">19K+ Community</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-visual reveal">
+      <div class="about-box">
+        <div class="about-big-num">ET</div>
+        <div class="about-stat-row">
+          <div class="about-stat-num">19.3K</div>
+          <div class="about-stat-txt">Instagram Followers</div>
+        </div>
+        <div class="about-stat-row">
+          <div class="about-stat-num">959</div>
+          <div class="about-stat-txt">Posts Published</div>
+        </div>
+        <div class="about-stat-row">
+          <div class="about-stat-num">3+</div>
+          <div class="about-stat-txt">Client Win Portfolios</div>
+        </div>
+      </div>
+      <div class="about-corner-badge">
+        <div class="badge-num">100%</div>
+        <div class="badge-txt">Results<br>Focused</div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="about-label">About Evan</div>
+      <h2 class="about-title">I Got My Dream Body Working a 9-5. You Can Too.</h2>
+      <p>I know the excuses because I had them all — no time, too tired after work, can't give up food I love. I found a way through that didn't require any of that sacrifice.</p>
+      <p>Now I coach men through the exact same framework: sustainable nutrition, efficient training, and a mindset built for real life — not Instagram perfection.</p>
+      <ul class="about-list">
+        <li><span class="check">✦</span> Specialized in fat loss without restrictive dieting</li>
+        <li><span class="check">✦</span> Training programs built for busy professionals</li>
+        <li><span class="check">✦</span> Proven client transformations with documented results</li>
+        <li><span class="check">✦</span> Ongoing 1:1 support — not just a PDF program</li>
+      </ul>
+      <a href="#cta" class="btn-lime" style="display:inline-flex;align-items:center;gap:.5rem;">Start Your Transformation ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="process-head reveal">
+    <div class="section-tag">— The Method</div>
+    <h2 class="section-title">HOW IT <span class="outline">WORKS</span></h2>
+    <p class="section-sub">A no-BS 4-phase system designed to get you lean without blowing up your lifestyle.</p>
+  </div>
+  <div class="steps">
+    <div class="step reveal">
+      <div class="step-num">01</div>
+      <div class="step-tag">Phase One</div>
+      <div class="step-icon">📋</div>
+      <div class="step-title">Assess & Baseline</div>
+      <p class="step-text">We map your lifestyle, eating habits, training history, and goals. No cookie-cutter starting point.</p>
+      <div class="step-bottom"></div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">02</div>
+      <div class="step-tag">Phase Two</div>
+      <div class="step-icon">🍽️</div>
+      <div class="step-title">Build Your Plan</div>
+      <p class="step-text">Custom calories, macros, and meal framework using foods you actually enjoy eating. No starvation.</p>
+      <div class="step-bottom"></div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">03</div>
+      <div class="step-tag">Phase Three</div>
+      <div class="step-icon">💪</div>
+      <div class="step-title">Train Smart</div>
+      <p class="step-text">3-4 efficient sessions per week. Progressive overload to burn fat and build the physique you want.</p>
+      <div class="step-bottom"></div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">04</div>
+      <div class="step-tag">Phase Four</div>
+      <div class="step-icon">🔄</div>
+      <div class="step-title">Iterate & Win</div>
+      <p class="step-text">Weekly check-ins, real-time plan adjustments, and ongoing accountability until the goal is done.</p>
+      <div class="step-bottom"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="reveal" style="text-align:center;">
+    <div class="section-tag">— Coaching Options</div>
+    <h2 class="section-title">PICK YOUR <span class="outline" style="-webkit-text-stroke:1.5px var(--black);">PLAN</span></h2>
+    <p class="section-sub" style="margin:0 auto;">Every plan is personalized. No templates. No guesswork.</p>
+  </div>
+  <div class="services-grid">
+    <div class="s-card reveal">
+      <div class="s-icon">📄</div>
+      <div class="s-name">Custom Blueprint</div>
+      <p class="s-desc">A fully built nutrition and training plan tailored to your body, goals, and schedule — delivered once.</p>
+      <div class="s-price">One-Time Investment · Inquire for Pricing</div>
+      <ul class="s-feat">
+        <li>Custom macro targets</li>
+        <li>8-week training plan</li>
+        <li>Meal framework</li>
+        <li>Strategy call</li>
+      </ul>
+    </div>
+    <div class="s-card featured reveal">
+      <div class="s-badge">Most Popular</div>
+      <div class="s-icon">🔥</div>
+      <div class="s-name">1:1 Shred Coaching</div>
+      <p class="s-desc">Full-service coaching with weekly check-ins, ongoing plan adjustments, and daily accountability. The complete system.</p>
+      <div class="s-price">Monthly · DM "FIT" to Apply</div>
+      <ul class="s-feat">
+        <li>Weekly check-ins & data reviews</li>
+        <li>Real-time plan adjustments</li>
+        <li>Direct message access</li>
+        <li>Nutrition + training + lifestyle</li>
+        <li>Transformation tracking</li>
+      </ul>
+    </div>
+    <div class="s-card reveal">
+      <div class="s-icon">🎓</div>
+      <div class="s-name">Dream Body Course</div>
+      <p class="s-desc">Self-paced online course covering exactly how Evan got lean while working a 9-5 — and how you can copy it.</p>
+      <div class="s-price">Self-Paced · Coming Soon</div>
+      <ul class="s-feat">
+        <li>Full video curriculum</li>
+        <li>Fat loss framework</li>
+        <li>9-5 compatible training</li>
+        <li>Lifetime access</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section id="results">
+  <div class="results-head">
+    <div class="reveal">
+      <div class="section-tag">— Client Wins</div>
+      <h2 class="section-title">REAL <span class="outline">RESULTS</span></h2>
+    </div>
+  </div>
+  <div class="transformations">
+    <div class="t-card reveal">
+      <div class="t-visual">
+        <div class="t-ba-row">
+          <div class="t-before">🧍</div>
+          <div class="t-divider"></div>
+          <div class="t-after">💪</div>
+        </div>
+        <div class="t-weights">
+          <span class="t-w">205 lbs</span>
+          <span class="t-w after-w">170 lbs</span>
+        </div>
+      </div>
+      <div class="t-body">
+        <div class="t-name">Reid's Transformation</div>
+        <div class="t-duration">⏱ 4.5 Month Coaching Program</div>
+        <p class="t-quote">Lost 35 lbs without giving up his social life. Still ate out, still enjoyed weekends — just with a system behind it.</p>
+        <div class="t-stat">↓ 35 LBS LOST</div>
+      </div>
+    </div>
+    <div class="t-card reveal">
+      <div class="t-visual">
+        <div class="t-ba-row">
+          <div class="t-before">🧍</div>
+          <div class="t-divider"></div>
+          <div class="t-after">💪</div>
+        </div>
+        <div class="t-weights">
+          <span class="t-w">242 lbs</span>
+          <span class="t-w after-w">218 lbs</span>
+        </div>
+      </div>
+      <div class="t-body">
+        <div class="t-name">Bence's Transformation</div>
+        <div class="t-duration">⏱ 2 Month Coaching Program</div>
+        <p class="t-quote">Down 24 lbs in just 2 months. Stayed consistent with work and dropped noticeable size in just 8 weeks.</p>
+        <div class="t-stat">↓ 24 LBS LOST</div>
+      </div>
+    </div>
+    <div class="t-card reveal">
+      <div class="t-visual">
+        <div class="t-ba-row">
+          <div class="t-before">🧍</div>
+          <div class="t-divider"></div>
+          <div class="t-after">💪</div>
+        </div>
+        <div class="t-weights">
+          <span class="t-w">168 lbs</span>
+          <span class="t-w after-w">145 lbs</span>
+        </div>
+      </div>
+      <div class="t-body">
+        <div class="t-name">Client Transformation</div>
+        <div class="t-duration">⏱ 4 Month Coaching Program</div>
+        <p class="t-quote">Went from soft and skinny-fat to visibly lean — while maintaining muscle. The body recomp result.</p>
+        <div class="t-stat">↓ 23 LBS LOST</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="reveal" style="text-align:center;">
+    <div class="section-tag">— What Clients Say</div>
+    <h2 class="section-title">THE <span class="outline">FEEDBACK</span></h2>
+  </div>
+  <div class="testi-grid">
+    <div class="t-item reveal">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-text">Evan gets that real life happens. He never made me feel guilty for eating out or missing a session. He just helped me get back on track. 4.5 months, 35 lbs gone.</p>
+      <div class="t-person">
+        <div class="t-avatar">R</div>
+        <div>
+          <div class="t-pname">Reid M.</div>
+          <div class="t-plost">Lost 35 lbs · 4.5 months</div>
+        </div>
+      </div>
+    </div>
+    <div class="t-item reveal">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-text">I was skeptical that 2 months could make a visible difference. I was wrong. The plan was aggressive but doable. I'd recommend Evan to anyone serious about getting lean.</p>
+      <div class="t-person">
+        <div class="t-avatar">B</div>
+        <div>
+          <div class="t-pname">Bence K.</div>
+          <div class="t-plost">Lost 24 lbs · 2 months</div>
+        </div>
+      </div>
+    </div>
+    <div class="t-item reveal">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-text">The weekly check-ins kept me honest without being stressful. Evan responds fast, adjusts the plan when life gets in the way, and actually cares about your progress.</p>
+      <div class="t-person">
+        <div class="t-avatar">J</div>
+        <div>
+          <div class="t-pname">James T.</div>
+          <div class="t-plost">Lost 28 lbs · 3 months</div>
+        </div>
+      </div>
+    </div>
+    <div class="t-item reveal">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-text">Finally someone who doesn't tell you to eat chicken and broccoli every meal. The flexible nutrition approach changed everything for me.</p>
+      <div class="t-person">
+        <div class="t-avatar">M</div>
+        <div>
+          <div class="t-pname">Marcus D.</div>
+          <div class="t-plost">Lost 19 lbs · 2.5 months</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div style="text-align:center;" class="reveal">
+    <div class="section-tag">— FAQ</div>
+    <h2 class="section-title">GOT <span class="outline" style="-webkit-text-stroke:1.5px var(--black);">QUESTIONS?</span></h2>
+    <p class="section-sub" style="margin:0 auto;">Everything you're wondering, answered upfront.</p>
+  </div>
+  <div class="faq-list">
+    <div class="fq reveal" onclick="toggleFaq(this)">
+      <div class="fq-q">Do I have to give up my favourite foods? <span class="fq-icon">+</span></div>
+      <div class="fq-a">Absolutely not. The whole point is that you can eat foods you enjoy. We use flexible dieting — you hit your numbers and eat what fits. No food is off limits.</div>
+    </div>
+    <div class="fq reveal" onclick="toggleFaq(this)">
+      <div class="fq-q">I work long hours. Is this realistic for me? <span class="fq-icon">+</span></div>
+      <div class="fq-a">This was literally built for people with 9-5 jobs. Workouts are 3-4 days, 45-60 minutes. The nutrition system is designed to be minimal effort with maximum output.</div>
+    </div>
+    <div class="fq reveal" onclick="toggleFaq(this)">
+      <div class="fq-q">How fast will I see results? <span class="fq-icon">+</span></div>
+      <div class="fq-a">Most clients see visible change within 3-4 weeks. Significant transformation (20+ lbs) typically happens in the 8-16 week range depending on consistency.</div>
+    </div>
+    <div class="fq reveal" onclick="toggleFaq(this)">
+      <div class="fq-q">What does the weekly check-in look like? <span class="fq-icon">+</span></div>
+      <div class="fq-a">You send a quick check-in form with your weight, energy levels, and photos. Evan reviews your data and sends back a feedback update and any plan adjustments within 24 hours.</div>
+    </div>
+    <div class="fq reveal" onclick="toggleFaq(this)">
+      <div class="fq-q">How do I sign up? <span class="fq-icon">+</span></div>
+      <div class="fq-a">DM Evan on Instagram the word "FIT" and he'll reach out personally to see if you're a good fit for the program. He only works with clients he's confident he can genuinely help.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-tag reveal">Ready to Start?</div>
+  <h2 class="cta-title reveal">STOP WISHING.<br>START SHREDDING.</h2>
+  <p class="cta-sub reveal">Join the men who ditched the excuses and built the body they wanted — without giving up their lifestyle.</p>
+  <div class="cta-form reveal">
+    <input class="cta-input" type="email" id="ctaEmail" placeholder="Enter your email for updates"/>
+    <button class="cta-btn" onclick="submitEmail()">LET'S GO →</button>
+  </div>
+  <p class="cta-disc reveal">Zero spam. Transformation content only.</p>
+  <a href="https://instagram.com/evantressel" class="cta-ig reveal" target="_blank">📸 DM "FIT" on Instagram</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="f-logo">EVAN<span>.</span>TRESSEL</a>
+  <p class="f-copy">© 2025 Evan Tressel · Online Fitness Coach · All Rights Reserved</p>
+  <div class="f-socials">
+    <a href="https://instagram.com/evantressel" target="_blank">IG</a>
+    <a href="#" target="_blank">YT</a>
+    <a href="#" target="_blank">TK</a>
+  </div>
+</footer>
+
+<div id="toast">✦ You're in! Evan will be in touch.</div>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    setTimeout(() => {
+      ring.style.left = e.clientX + 'px';
+      ring.style.top = e.clientY + 'px';
+    }, 60);
+  });
+
+  // Nav scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 70);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => obs.observe(el));
+
+  // FAQ
+  function toggleFaq(item) {
+    const open = item.classList.contains('open');
+    document.querySelectorAll('.fq').forEach(f => f.classList.remove('open'));
+    if (!open) item.classList.add('open');
+  }
+
+  // Email
+  function submitEmail() {
+    const v = document.getElementById('ctaEmail').value;
+    if (!v || !v.includes('@')) { alert('Enter a valid email.'); return; }
+    document.getElementById('ctaEmail').value = '';
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+</body>
+</html>
